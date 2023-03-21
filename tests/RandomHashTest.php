@@ -151,13 +151,66 @@ class RandomHashTest extends TestCase
         $this->assertEquals('00', $hash);
     }
 
-    public function test_if_it_fail_after_max_possible_combination_reached()
+    public function test_if_it_can_generate_not_unique_hashes()
+    {
+        $config = new HashConfig();
+        $config->length(2)
+            ->count(5)
+            ->notUnique()
+            ->charset('01')
+            ->skip(function ($hash) {
+                return in_array($hash, ['10', '11', '01']);
+            });
+
+        $instance = new RandomHash($config);
+        $hashes = $instance->generate();
+
+        foreach ($hashes as $hash) {
+            $this->assertEquals('00', $hash);
+        }
+    }
+
+    public function test_if_it_can_generate_unique_hashes()
+    {
+        $config = new HashConfig();
+        $config->length(2)
+            ->count(2)
+            ->unique()
+            ->charset('01')
+            ->skip(function ($hash) {
+                return in_array($hash, ['10', '11']);
+            });
+
+        $instance = new RandomHash($config);
+        $hashes = $instance->generate();
+
+        $this->assertEqualsCanonicalizing(['01', '00'], $hashes);
+    }
+
+    public function test_if_it_fails_after_max_possible_combination_reached()
     {
         $config = new HashConfig();
         $config->length(2)
             ->charset('01')
             ->skip(function ($hash) {
                 return in_array($hash, ['10', '11', '01', '00']);
+            });
+
+        $instance = new RandomHash($config);
+
+        $this->expectException(InvalidConfigException::class);
+        $instance->generate();
+    }
+
+    public function test_if_it_fails_after_max_possible_combination_reached_using_unique()
+    {
+        $config = new HashConfig();
+        $config->length(2)
+            ->charset('01')
+            ->count(3)
+            ->unique()
+            ->skip(function ($hash) {
+                return in_array($hash, ['10', '11']);
             });
 
         $instance = new RandomHash($config);
