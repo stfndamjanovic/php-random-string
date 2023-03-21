@@ -3,7 +3,6 @@
 namespace Stfn\RandomHash\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Stfn\RandomHash\Charset;
 use Stfn\RandomHash\InvalidConfigException;
 use Stfn\RandomHash\RandomHash;
 use Stfn\RandomHash\HashConfig;
@@ -124,7 +123,7 @@ class RandomHashTest extends TestCase
     {
         $config = new HashConfig();
         $config->length(10)
-            ->charset(Charset::UPPERCASE->value . Charset::LOWERCASE->value . Charset::NUMERIC->value);
+            ->charset(HashConfig::CHARSET_UPPERCASE . HashConfig::CHARSET_LOWERCASE . HashConfig::CHARSET_NUMERIC);
 
         $instance = new RandomHash($config);
         $hash = $instance->generate();

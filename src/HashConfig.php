@@ -6,6 +6,10 @@ namespace Stfn\RandomHash;
 
 class HashConfig
 {
+    const CHARSET_UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const CHARSET_LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
+    const CHARSET_NUMERIC = "0123456789";
+
     protected $length;
 
     protected $count = 1;
@@ -23,7 +27,7 @@ class HashConfig
     public function __construct($length = 16)
     {
         $this->length = $length;
-        $this->charset = Charset::LOWERCASE->value . Charset::UPPERCASE->value . Charset::NUMERIC->value;
+        $this->charset = self::CHARSET_LOWERCASE . self::CHARSET_UPPERCASE . self::CHARSET_NUMERIC;
     }
 
     public static function make($length = 16)
@@ -70,21 +74,21 @@ class HashConfig
 
     public function upperCaseOnly(): self
     {
-        $this->charset = Charset::UPPERCASE->value;
+        $this->charset = self::CHARSET_UPPERCASE;
 
         return $this;
     }
 
     public function lowerCaseOnly(): self
     {
-        $this->charset = Charset::LOWERCASE->value;
+        $this->charset = self::CHARSET_LOWERCASE;
 
         return $this;
     }
 
     public function numbersOnly(): self
     {
-        $this->charset = Charset::NUMERIC->value;
+        $this->charset = self::CHARSET_NUMERIC;
 
         return $this;
     }
