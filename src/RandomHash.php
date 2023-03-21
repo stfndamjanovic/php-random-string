@@ -36,17 +36,25 @@ class RandomHash
         $charset = $this->config->getCharset();
         $length = $this->config->getLength();
 
-        $maxCombinations = pow(strlen($this->config->getCharset()), $this->config->getLength());
+        $charsetLength = strlen($this->config->getCharset());
+        $maxCombinations = pow($charsetLength, $this->config->getLength());
 
         for ($i = 0; $i < $this->config->getCount(); $i++) {
             if ($maxCombinations <= count($this->skipped)) {
                 throw InvalidConfigException::maxCombinationReached();
             }
 
+            $randomBytes = random_bytes($length);
+
+            for ($j = $length - 1; $j > 0; $j--) {
+                $rand = random_int(0, $j);
+                [$randomBytes[$j], $randomBytes[$rand]] = [$randomBytes[$rand], $randomBytes[$j]];
+            }
+
             $hash = '';
 
             for ($j = 0; $j < $length; $j++) {
-                $hash .= $charset[rand(0, strlen($charset) - 1)];
+                $hash .= $charset[ord($randomBytes[$j]) % $charsetLength];
             }
 
             $hash = $this->config->getPrefix() . $hash . $this->config->getSuffix();
