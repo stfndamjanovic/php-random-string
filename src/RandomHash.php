@@ -49,11 +49,12 @@ class RandomHash
                 $hash .= $charset[rand(0, strlen($charset) - 1)];
             }
 
-            $hash = $this->config->getPrefix() . $hash . $this->config->getSuffix();
+            $hash = $this->config->getPrefix().$hash.$this->config->getSuffix();
 
             if ($this->shouldSkip($hash)) {
                 $i--;
                 $this->skipHash($hash);
+
                 continue;
             }
 
@@ -109,7 +110,7 @@ class RandomHash
 
     protected function skipHash($hash)
     {
-        if (!in_array($hash, $this->skipped)) {
+        if (! in_array($hash, $this->skipped)) {
             $this->skipped[] = $hash;
         }
     }

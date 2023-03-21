@@ -3,9 +3,9 @@
 namespace Stfn\RandomHash\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Stfn\RandomHash\HashConfig;
 use Stfn\RandomHash\InvalidConfigException;
 use Stfn\RandomHash\RandomHash;
-use Stfn\RandomHash\HashConfig;
 
 class RandomHashTest extends TestCase
 {
@@ -28,33 +28,33 @@ class RandomHashTest extends TestCase
     public function test_if_it_can_generate_hash_with_specific_prefix()
     {
         $config = new HashConfig();
-        $config->prefix("PREFIX");
+        $config->prefix('PREFIX');
 
         $instance = new RandomHash($config);
         $hash = $instance->generate();
 
-        $this->assertStringStartsWith("PREFIX", $hash);
+        $this->assertStringStartsWith('PREFIX', $hash);
 
-        $config->prefix("NEW_PREFIX");
+        $config->prefix('NEW_PREFIX');
         $hash = $instance->generate();
 
-        $this->assertStringStartsWith("NEW_PREFIX", $hash);
+        $this->assertStringStartsWith('NEW_PREFIX', $hash);
     }
 
     public function test_if_it_can_generate_hash_with_specific_suffix()
     {
         $config = new HashConfig();
-        $config->suffix("SUFFIX");
+        $config->suffix('SUFFIX');
 
         $instance = new RandomHash($config);
         $hash = $instance->generate();
 
-        $this->assertStringEndsWith("SUFFIX", $hash);
+        $this->assertStringEndsWith('SUFFIX', $hash);
 
-        $config->suffix("NEW_SUFFIX");
+        $config->suffix('NEW_SUFFIX');
         $hash = $instance->generate();
 
-        $this->assertStringEndsWith("NEW_SUFFIX", $hash);
+        $this->assertStringEndsWith('NEW_SUFFIX', $hash);
     }
 
     public function test_if_it_can_generate_hash_with_specific_count()
@@ -123,7 +123,7 @@ class RandomHashTest extends TestCase
     {
         $config = new HashConfig();
         $config->length(10)
-            ->charset(HashConfig::CHARSET_UPPERCASE . HashConfig::CHARSET_LOWERCASE . HashConfig::CHARSET_NUMERIC);
+            ->charset(HashConfig::CHARSET_UPPERCASE.HashConfig::CHARSET_LOWERCASE.HashConfig::CHARSET_NUMERIC);
 
         $instance = new RandomHash($config);
         $hash = $instance->generate();
@@ -173,7 +173,7 @@ class RandomHashTest extends TestCase
         $hashes = RandomHash::fromConfig([
             'length' => 12,
             'prefix' => $prefix,
-            'count' => 10
+            'count' => 10,
         ])->generate();
 
         $this->assertStringStartsWith($prefix, $hashes[0]);

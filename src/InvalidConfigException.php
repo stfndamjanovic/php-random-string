@@ -18,6 +18,6 @@ class InvalidConfigException extends Exception
 
     public static function propertyNotPositiveNumber($property)
     {
-        return new self(ucfirst($property) . " must be positive number.");
+        return new self(ucfirst($property).' must be positive number.');
     }
 }

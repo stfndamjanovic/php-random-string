@@ -6,9 +6,11 @@ namespace Stfn\RandomHash;
 
 class HashConfig
 {
-    const CHARSET_UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const CHARSET_LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
-    const CHARSET_NUMERIC = "0123456789";
+    const CHARSET_UPPERCASE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    const CHARSET_LOWERCASE = 'abcdefghijklmnopqrstuvwxyz';
+
+    const CHARSET_NUMERIC = '0123456789';
 
     protected $length;
 
@@ -27,7 +29,7 @@ class HashConfig
     public function __construct($length = 16)
     {
         $this->length = $length;
-        $this->charset = self::CHARSET_LOWERCASE . self::CHARSET_UPPERCASE . self::CHARSET_NUMERIC;
+        $this->charset = self::CHARSET_LOWERCASE.self::CHARSET_UPPERCASE.self::CHARSET_NUMERIC;
     }
 
     public static function make($length = 16)
@@ -52,7 +54,7 @@ class HashConfig
 
     public function validate()
     {
-        if (!is_string($this->charset) || empty($this->charset)) {
+        if (! is_string($this->charset) || empty($this->charset)) {
             throw InvalidConfigException::invalidCharset();
         }
 
