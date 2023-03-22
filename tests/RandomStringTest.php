@@ -3,9 +3,9 @@
 namespace Stfn\RandomString\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Stfn\RandomString\StringConfig;
 use Stfn\RandomString\InvalidStringConfigException;
 use Stfn\RandomString\RandomString;
+use Stfn\RandomString\StringConfig;
 
 class RandomStringTest extends TestCase
 {
