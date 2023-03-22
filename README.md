@@ -2,8 +2,7 @@
 
 [![Tests](https://img.shields.io/github/actions/workflow/status/stfndamjanovic/php-random-string/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/stfndamjanovic/php-random-string/actions/workflows/run-tests.yml)
 
-This package can be used to generate a random string based on your set of characters or predefined ones. 
-You can configure string length, prefix, suffix, count of strings, or to skip some strings under certain conditions...
+This package can be used to generate a random string based on your set of characters or predefined ones. You can configure string length, prefix, suffix, and count of strings, or skip some strings under certain conditions...
 
 ## Installation
 
@@ -23,7 +22,8 @@ $string = RandomString::new()->generate(); // Output: RIKdjFzuDaN12RiJ
 ```
 
 ### Length definition
-You can control the length of string. By default, it's 16 characters length.
+
+You can control the length of the string. By default, it's 16 characters.
 
 ```php
 $string = RandomString::new(6)->generate(); // Output: dzGcot
@@ -31,7 +31,8 @@ $string = RandomString::new(6)->generate(); // Output: dzGcot
 
 ### Predefined charset
 
-If you want to generate string consist of numbers only, lower case letters or uppercase letters you can use predefined charsets.
+If you want to generate a string consisting of numbers only, lowercase letters, or uppercase letters you can use predefined charsets.
+
 ```php
 // Generate string that contains only numbers
 $config = StringConfig::make()
@@ -65,7 +66,7 @@ $string = RandomString::fromConfig($config)->generate(); // Output: 3B41B32C2A12
 
 ### Skipping
 
-Sometimes you may want to generate random string, but under certain conditions. 
+Sometimes you may want to generate a random string but under certain conditions. 
 For example, give me a string that is not part of this array.
 
 ```php
@@ -81,7 +82,7 @@ $string = RandomString::fromConfig($config)->generate(); // Output: 083712
 
 ### Prefix and Suffix
 
-If you want to add prefix or suffix to generated string, you can do it like this.
+If you want to add a prefix or suffix to generated string, you can do it like this.
 
 ```php
 use Stfn\RandomString\StringConfig;
@@ -96,7 +97,7 @@ $string = RandomString::fromConfig($config)->generate(); // Output: PRE_rkM7Jl_A
 
 ### Array of random strings
 
-RandomString can generate more than just one string.
+`RandomString` can generate more than just one string.
 
 ```php
 $config = StringConfig::make()
@@ -123,17 +124,12 @@ $strings = RandomString::fromConfig($config)->generate();
 // Output: ["92ONRj", "Me6oym", "WbBPVc"];
 ```
 
-### Shorthands
+### Everything in one line
 
-You can use shorthands if you don't want to create 2 objects every time.
+You can use the `fromArray` method if you don't want to create 2 objects every time.
 
 ```php
-$string = RandomString::fromArray([
-    'length' => 6,
-    'charset' => 'ABCD1234'
-])->generate();
-
-echo $string; // Output: CCDA1D
+$string = RandomString::fromArray(['length' => 6, 'charset' => 'ABCD1234'])->generate(); // Output: CCDA1D
 ```
 
 ## Testing
@@ -144,7 +140,7 @@ composer test
 
 ## Security
 
-While the RandomString class is designed to generate random and unpredictable string, it is important to note that it is not a cryptographically secure hash function and should not be used for sensitive applications such as password hashing or cryptographic key generation.
+While the `RandomString` class is designed to generate random and unpredictable string, it is important to note that it is not a cryptographically secure hash function and should not be used for sensitive applications such as password hashing or cryptographic key generation.
 
 ## Changelog
 
