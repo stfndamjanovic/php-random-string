@@ -40,13 +40,13 @@ $config = StringConfig::make()
 
 $string = RandomString::fromConfig($config)->generate(); // Output: 9387406871490781
 
-// Generate string that contains only lower case letters
+// Generate string that contains only lowercase letters
 $config = StringConfig::make()
             ->lowerCaseOnly();
 
 $string = RandomString::fromConfig($config)->generate(); // Output: hvphyfmgnvbbajve
 
-// Generate string that contains only upper case letters
+// Generate string that contains only uppercase letters
 $config = StringConfig::make()
             ->upperCaseOnly();
 
