@@ -9,7 +9,7 @@ This package can be used to generate a random string based on your set of charac
 You can install the package via composer:
 
 ```bash
-Not published yet
+composer require stfn/php-random-string
 ```
 
 ## Usage
