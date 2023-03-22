@@ -2,7 +2,8 @@
 
 [![Tests](https://img.shields.io/github/actions/workflow/status/stfndamjanovic/php-random-string/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/stfndamjanovic/php-random-string/actions/workflows/run-tests.yml)
 
-Description
+This package can be used to generate a random string based on your set of characters or predefined ones. 
+You can configure string length, prefix, suffix, count of strings, or to skip some strings under certain conditions...
 
 ## Installation
 
@@ -30,30 +31,30 @@ $string = RandomString::new(6)->generate(); // Output: dzGcot
 
 ### Predefined charset
 
-If you want to generate string consist of numbers only, you can do it like this:
+If you want to generate string consist of numbers only, lower case letters or uppercase letters you can use predefined charsets.
 ```php
 // Generate string that contains only numbers
 $config = StringConfig::make()
             ->numbersOnly();
 
-$string = RandomString::fromConfig($config)->generate(); // Output: 649432
+$string = RandomString::fromConfig($config)->generate(); // Output: 9387406871490781
 
 // Generate string that contains only lower case letters
 $config = StringConfig::make()
             ->lowerCaseOnly();
 
-$string = RandomString::fromConfig($config)->generate(); // Output: 649432
+$string = RandomString::fromConfig($config)->generate(); // Output: hvphyfmgnvbbajve
 
 // Generate string that contains only upper case letters
 $config = StringConfig::make()
             ->upperCaseOnly();
 
-$string = RandomString::fromConfig($config)->generate();
+$string = RandomString::fromConfig($config)->generate(); // Output: ZIVSUDQHAMDNQAYV
 ```
 
 ### Custom charset
 
-Or you can use your custom charset for generating random string
+Or you can use your custom charset for generating random string.
 
 ```php
 $config = StringConfig::make()
@@ -95,7 +96,7 @@ $string = RandomString::fromConfig($config)->generate(); // Output: PRE_rkM7Jl_A
 
 ### Array of random strings
 
-RandomString can generate more than just one random string.
+RandomString can generate more than just one string.
 
 ```php
 $config = StringConfig::make()
@@ -109,7 +110,7 @@ $strings = RandomString::fromConfig($config)->generate();
 
 ### Uniqueness
 
-By default, it may happen (rarely, but it's possible) to have not unique strings in the generated array. If you want to avoid it, just change the config.
+It may happen (rarely, but it's possible) to have not unique strings in the generated array. If you want to avoid it, just change the config.
 
 ```php
 $config = StringConfig::make()
