@@ -1,5 +1,6 @@
 # Random string generator for PHP
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/stfn/php-random-string.svg?style=flat-square)](https://packagist.org/packages/stfn/php-random-string)
 [![Tests](https://img.shields.io/github/actions/workflow/status/stfndamjanovic/php-random-string/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/stfndamjanovic/php-random-string/actions/workflows/run-tests.yml)
 
 This package can be used to generate a random string based on your set of characters or predefined ones. You can configure string length, prefix, suffix, and count of strings, or skip some strings under certain conditions...
