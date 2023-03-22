@@ -17,9 +17,9 @@ class RandomString
         $this->config = $config;
     }
 
-    public static function new(): self
+    public static function new($length = 16): self
     {
-        return new self(new StringConfig());
+        return new self(new StringConfig($length));
     }
 
     public static function fromConfig(StringConfig $config): self

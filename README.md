@@ -21,6 +21,13 @@ Simple example without any configuration.
 $string = RandomString::new()->generate(); // Output: RIKdjFzuDaN12RiJ
 ```
 
+### Length definition
+You can control the length of string. By default, it's 16 characters length.
+
+```php
+$string = RandomString::new(6)->generate(); // Output: dzGcot
+````
+
 ### Predefined charset
 
 If you want to generate string consist of numbers only, you can do it like this:
@@ -45,54 +52,87 @@ $string = RandomString::fromConfig($config)->generate();
 ```
 
 ### Custom charset
-Or you can use your custom charset for generating random string:
+
+Or you can use your custom charset for generating random string
+
 ```php
 $config = StringConfig::make()
-            ->charset("ABCD1234");
+            ->charset("ABCDEFG1234");
 
 $string = RandomString::fromConfig($config)->generate(); // Output: 3B41B32C2A12A3A1
 ```
 
+### Skipping
+
+Sometimes you may want to generate random string, but under certain conditions. 
+For example, give me a string that is not part of this array.
+
+```php
+$config = StringConfig::make()
+            ->numbersOnly()
+            ->length(6)
+            ->skip(function ($string) {
+                return in_array($string, ["025922", "104923"]);
+            });
+
+$string = RandomString::fromConfig($config)->generate(); // Output: 083712
+```
+
+### Prefix and Suffix
+
+If you want to add prefix or suffix to generated string, you can do it like this.
+
+```php
+use Stfn\RandomString\StringConfig;
+
+$config = StringConfig::make()
+            ->length(6)
+            ->prefix("PRE_")
+            ->suffix("_AFTER");
+
+$string = RandomString::fromConfig($config)->generate(); // Output: PRE_rkM7Jl_AFTER
+```
+
+### Array of random strings
+
+RandomString can generate more than just one random string.
+
+```php
+$config = StringConfig::make()
+            ->length(6)
+            ->count(3);
+
+$strings = RandomString::fromConfig($config)->generate();
+
+// Output: ["ozBYeT", "BYjCtr", "Sw7O5b"];
+```
+
+### Uniqueness
+
+By default, it may happen (rarely, but it's possible) to have not unique strings in the generated array. If you want to avoid it, just change the config.
+
+```php
+$config = StringConfig::make()
+            ->length(6)
+            ->count(3)
+            ->unique();
+
+$strings = RandomString::fromConfig($config)->generate();
+
+// Output: ["92ONRj", "Me6oym", "WbBPVc"];
+```
+
 ### Shorthands
-You can use shorthand for config.
+
+You can use shorthands if you don't want to create 2 objects every time.
+
 ```php
 $string = RandomString::fromArray([
     'length' => 6,
     'charset' => 'ABCD1234'
 ])->generate();
 
-echo $string; // Output: 3B41B32C2A12A3A1
-```
-
-If you want to generate more than one string, with more than one configuration option, you can do it like this:
-```php
-use Stfn\RandomString\StringConfig;
-
-$config = StringConfig::make()
-    ->charset("ABCD1234")
-    ->length(5)
-    ->prefix("PREFIX_")
-    ->suffix("_SUFFIX")
-    ->count(10)
-    ->unique()
-    ->skip(function ($string) {
-        return in_array($string, ["PREFIX_BCD1234A_SUFFIX"]);
-    });
-
-$strings = RandomString::fromConfig($config)->generate();
-
-echo $string; // Output: [
-    "PREFIX_CAC23_SUFFIX"
-    "PREFIX_3AAD2_SUFFIX"
-    "PREFIX_CC21D_SUFFIX"
-    "PREFIX_121C3_SUFFIX"
-    "PREFIX_43ABC_SUFFIX"
-    "PREFIX_D432A_SUFFIX"
-    "PREFIX_43BC3_SUFFIX"
-    "PREFIX_11BBB_SUFFIX"
-    "PREFIX_31121_SUFFIX"
-    "PREFIX_3AB1B_SUFFIX"
-];
+echo $string; // Output: CCDA1D
 ```
 
 ## Testing
