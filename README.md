@@ -14,35 +14,46 @@ Not published yet
 
 ## Usage
 
+### Basic
 Simple example without any configuration.
 
 ```php
-$string = RandomString::new()->generate();
-
-echo $string; // Output: RIKdjFzuDaN12RiJ
+$string = RandomString::new()->generate(); // Output: RIKdjFzuDaN12RiJ
 ```
+
+### Predefined charset
 
 If you want to generate string consist of numbers only, you can do it like this:
 ```php
+// Generate string that contains only numbers
 $config = StringConfig::make()
-            ->length(6)
             ->numbersOnly();
 
-$string = RandomString::fromConfig($config)->generate();
+$string = RandomString::fromConfig($config)->generate(); // Output: 649432
 
-echo $string; // Output: 649432
+// Generate string that contains only lower case letters
+$config = StringConfig::make()
+            ->lowerCaseOnly();
+
+$string = RandomString::fromConfig($config)->generate(); // Output: 649432
+
+// Generate string that contains only upper case letters
+$config = StringConfig::make()
+            ->upperCaseOnly();
+
+$string = RandomString::fromConfig($config)->generate();
 ```
 
+### Custom charset
 Or you can use your custom charset for generating random string:
 ```php
 $config = StringConfig::make()
             ->charset("ABCD1234");
 
-$string = RandomString::fromConfig($config)->generate();
-
-echo $string; // Output: 3B41B32C2A12A3A1
+$string = RandomString::fromConfig($config)->generate(); // Output: 3B41B32C2A12A3A1
 ```
 
+### Shorthands
 You can use shorthand for config.
 ```php
 $string = RandomString::fromArray([
