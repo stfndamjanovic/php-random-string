@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Stfn\RandomHash;
+namespace Stfn\RandomString;
 
-class HashConfig
+class StringConfig
 {
     const CHARSET_UPPERCASE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
@@ -12,19 +12,19 @@ class HashConfig
 
     const CHARSET_NUMERIC = '0123456789';
 
-    protected $length;
+    protected int $length;
 
-    protected $count = 1;
+    protected int $count = 1;
 
-    protected $charset;
+    protected string $charset;
 
-    protected $prefix = '';
+    protected string $prefix = '';
 
-    protected $suffix = '';
+    protected string $suffix = '';
 
-    protected $unique = false;
+    protected bool $unique = false;
 
-    protected $skipCallback;
+    protected \Closure|null $skipCallback = null;
 
     public function __construct($length = 16)
     {
@@ -32,12 +32,12 @@ class HashConfig
         $this->charset = self::CHARSET_LOWERCASE.self::CHARSET_UPPERCASE.self::CHARSET_NUMERIC;
     }
 
-    public static function make($length = 16)
+    public static function make($length = 16): self
     {
         return new self($length);
     }
 
-    public static function fromArray(array $array)
+    public static function fromArray(array $array): self
     {
         $object = new self();
 
@@ -52,18 +52,18 @@ class HashConfig
         return $object;
     }
 
-    public function validate()
+    public function validate(): void
     {
-        if (! is_string($this->charset) || empty($this->charset)) {
-            throw InvalidConfigException::invalidCharset();
+        if (empty($this->charset)) {
+            throw InvalidStringConfigException::invalidCharset();
         }
 
         if ($this->length < 1) {
-            throw InvalidConfigException::propertyNotPositiveNumber('length');
+            throw InvalidStringConfigException::propertyNotPositiveNumber('length');
         }
 
         if ($this->count < 1) {
-            throw InvalidConfigException::propertyNotPositiveNumber('count');
+            throw InvalidStringConfigException::propertyNotPositiveNumber('count');
         }
     }
 
@@ -95,20 +95,6 @@ class HashConfig
         return $this;
     }
 
-    public function prefix(string $prefix)
-    {
-        $this->prefix = $prefix;
-
-        return $this;
-    }
-
-    public function suffix(string $suffix)
-    {
-        $this->suffix = $suffix;
-
-        return $this;
-    }
-
     public function length(int $length): self
     {
         $this->length = $length;
@@ -116,33 +102,54 @@ class HashConfig
         return $this;
     }
 
-    public function skip(callable $callback)
+    public function count(int $count): self
+    {
+        $this->count = $count;
+
+        return $this;
+    }
+
+    public function skip(callable $callback): self
     {
         $this->skipCallback = $callback;
 
         return $this;
     }
 
-    public function unique()
+    public function prefix(string $prefix): self
+    {
+        $this->prefix = $prefix;
+
+        return $this;
+    }
+
+    public function suffix(string $suffix): self
+    {
+        $this->suffix = $suffix;
+
+        return $this;
+    }
+
+    public function unique(): self
     {
         $this->unique = true;
 
         return $this;
     }
 
-    public function notUnique()
+    public function notUnique(): self
     {
         $this->unique = false;
 
         return $this;
     }
 
-    public function hasSkipCallback()
+    public function hasSkipCallback(): bool
     {
         return is_callable($this->skipCallback);
     }
 
-    public function getSkipCallback()
+    public function getSkipCallback(): \Closure|null
     {
         return $this->skipCallback;
     }
@@ -152,31 +159,24 @@ class HashConfig
         return $this->length;
     }
 
-    public function getCharset()
+    public function getCharset(): string
     {
         return $this->charset;
     }
 
-    public function getPrefix()
+    public function getPrefix(): string
     {
         return $this->prefix;
     }
 
-    public function getSuffix()
+    public function getSuffix(): string
     {
         return $this->suffix;
     }
 
-    public function isUnique()
+    public function isUnique(): bool
     {
         return $this->unique;
-    }
-
-    public function count(int $count)
-    {
-        $this->count = $count;
-
-        return $this;
     }
 
     public function getCount()

@@ -1,11 +1,11 @@
 {
-    "name": "stfn/random-hash",
-    "description": "This is my package random-hash",
+    "name": "stfn/php-random-string",
+    "description": "",
     "keywords": [
         "stfn",
-        "random-hash"
+        "random-string"
     ],
-    "homepage": "https://github.com/stfn/random-hash",
+    "homepage": "https://github.com/stfn/php-random-string",
     "license": "MIT",
     "authors": [
         {
@@ -19,22 +19,21 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
-        "laravel/pint": "^1.2",
-        "spatie/ray": "^1.28"
+        "laravel/pint": "^1.2"
     },
     "autoload": {
         "psr-4": {
-            "Stfn\\RandomHash\\": "src"
+            "Stfn\\RandomString\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Stfn\\RandomHash\\Tests\\": "tests"
+            "Stfn\\RandomString\\Tests\\": "tests"
         }
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
-            "test-coverage": "vendor/bin/phpunit --coverage",
+        "test-coverage": "vendor/bin/phpunit --coverage",
         "format": "vendor/bin/pint"
     },
     "config": {

@@ -1,14 +1,14 @@
 <?php
 
-namespace Stfn\RandomHash;
+namespace Stfn\RandomString;
 
 use Exception;
 
-class InvalidConfigException extends Exception
+class InvalidStringConfigException extends Exception
 {
     public static function maxCombinationReached()
     {
-        return new self('Cannot generate hash because there is no more possible combinations. Check your config.');
+        return new self('Cannot generate string because there is no more possible combinations. Check your config.');
     }
 
     public static function invalidCharset()

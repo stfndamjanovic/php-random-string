@@ -1,8 +1,6 @@
-# Random hash generator for PHP
+# Random string generator for PHP
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/stfn/php-random-hash.svg?style=flat-square)](https://packagist.org/packages/stfn/random-hash)
-[![Tests](https://img.shields.io/github/actions/workflow/status/stfn/php-random-hash/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/stfn/random-hash/actions/workflows/run-tests.yml)
-[![Total Downloads](https://img.shields.io/packagist/dt/stfn/php-random-hash.svg?style=flat-square)](https://packagist.org/packages/stfn/random-hash)
+[![Tests](https://img.shields.io/github/actions/workflow/status/stfndamjanovic/php-random-string/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/stfndamjanovic/php-random-string/actions/workflows/run-tests.yml)
 
 Description
 
@@ -11,32 +9,54 @@ Description
 You can install the package via composer:
 
 ```bash
-composer require stfn/php-random-hash
+composer require stfn/php-random-string
 ```
 
 ## Usage
 
+Simple example without any configuration.
+
 ```php
-use Stfn\RandomHash\HashConfig;
-use Stfn\RandomHash\RandomHash;
+use Stfn\RandomString\RandomString;
 
-$config = HashConfig::make()
-            ->length(6)
-            ->numbersOnly()
-            ->skip(function ($hash) {
-                return in_array($hash, ['034522', '109487']);
-            });
+$string = RandomString::new()->generate();
 
-$hashes = RandomHash::make($config)->generate();
+echo $string; // Output: RIKdjFzuDaN12RiJ
 ```
 
-This example will skip 034522 and 109487 and generate 6 character hash consist of numbers only.
+If you want to generate string consist of numbers only, you can do it like this:
+```php
+use Stfn\RandomString\StringConfig;
+use Stfn\RandomString\RandomString;
+
+$config = StringConfig::make()->length(6)->numbersOnly();
+
+$string = RandomString::fromConfig($config)->generate();
+
+echo $string; // Output: 649432
+```
+
+Or you can use your custom charset for generating random string:
+```php
+use Stfn\RandomString\StringConfig;
+use Stfn\RandomString\RandomString;
+
+$config = StringConfig::make()->charset("ABCD1234");
+
+$string = RandomString::fromConfig($config)->generate();
+
+echo $string; // Output: 3B41B32C2A12A3A1
+```
 
 ## Testing
 
 ```bash
 composer test
 ```
+
+## Security
+
+While the RandomString class is designed to generate random and unpredictable string, it is important to note that it is not a cryptographically secure hash function and should not be used for sensitive applications such as password hashing or cryptographic key generation.
 
 ## Changelog
 
