@@ -9,7 +9,7 @@ Description
 You can install the package via composer:
 
 ```bash
-composer require stfn/php-random-string
+Not published yet
 ```
 
 ## Usage
@@ -17,8 +17,6 @@ composer require stfn/php-random-string
 Simple example without any configuration.
 
 ```php
-use Stfn\RandomString\RandomString;
-
 $string = RandomString::new()->generate();
 
 echo $string; // Output: RIKdjFzuDaN12RiJ
@@ -26,10 +24,9 @@ echo $string; // Output: RIKdjFzuDaN12RiJ
 
 If you want to generate string consist of numbers only, you can do it like this:
 ```php
-use Stfn\RandomString\StringConfig;
-use Stfn\RandomString\RandomString;
-
-$config = StringConfig::make()->length(6)->numbersOnly();
+$config = StringConfig::make()
+            ->length(6)
+            ->numbersOnly();
 
 $string = RandomString::fromConfig($config)->generate();
 
@@ -38,14 +35,53 @@ echo $string; // Output: 649432
 
 Or you can use your custom charset for generating random string:
 ```php
-use Stfn\RandomString\StringConfig;
-use Stfn\RandomString\RandomString;
-
-$config = StringConfig::make()->charset("ABCD1234");
+$config = StringConfig::make()
+            ->charset("ABCD1234");
 
 $string = RandomString::fromConfig($config)->generate();
 
 echo $string; // Output: 3B41B32C2A12A3A1
+```
+
+You can use shorthand for config.
+```php
+$string = RandomString::fromArray([
+    'length' => 6,
+    'charset' => 'ABCD1234'
+])->generate();
+
+echo $string; // Output: 3B41B32C2A12A3A1
+```
+
+If you want to generate more than one string, with more than one configuration option, you can do it like this:
+```php
+use Stfn\RandomString\StringConfig;
+
+$config = StringConfig::make()
+    ->charset("ABCD1234")
+    ->length(5)
+    ->prefix("PREFIX_")
+    ->suffix("_SUFFIX")
+    ->count(10)
+    ->unique()
+    ->skip(function ($string) {
+        return in_array($string, ["PREFIX_BCD1234A_SUFFIX"]);
+    });
+
+$strings = RandomString::fromConfig($config)->generate();
+
+echo $string; // Output: [
+    "PREFIX_CAC23_SUFFIX"
+    "PREFIX_3AAD2_SUFFIX"
+    "PREFIX_CC21D_SUFFIX"
+    "PREFIX_121C3_SUFFIX"
+    "PREFIX_43ABC_SUFFIX"
+    "PREFIX_D432A_SUFFIX"
+    "PREFIX_43BC3_SUFFIX"
+    "PREFIX_11BBB_SUFFIX"
+    "PREFIX_31121_SUFFIX"
+    "PREFIX_3AB1B_SUFFIX"
+];
 ```
 
 ## Testing
