@@ -209,6 +209,20 @@ class RandomStringTest extends TestCase
         $instance->generate();
     }
 
+    public function test_if_it_fails_when_count_is_greater_than_possible_combinations()
+    {
+        $config = new StringConfig();
+        $config->length(2)
+            ->count(5)
+            ->unique()
+            ->charset('01');
+
+        $instance = new RandomString($config);
+
+        $this->expectException(InvalidStringConfigException::class);
+        $instance->generate();
+    }
+
     public function test_if_it_fails_after_max_possible_combination_reached_using_unique()
     {
         $config = new StringConfig();

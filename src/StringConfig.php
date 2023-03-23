@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Stfn\RandomString;
 
+use Closure;
+
 class StringConfig
 {
     const CHARSET_UPPERCASE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -24,7 +26,7 @@ class StringConfig
 
     protected bool $unique = false;
 
-    protected \Closure|null $skipCallback = null;
+    protected Closure|null $skipCallback = null;
 
     public function __construct($length = 16)
     {
@@ -149,7 +151,7 @@ class StringConfig
         return is_callable($this->skipCallback);
     }
 
-    public function getSkipCallback(): \Closure|null
+    public function getSkipCallback(): Closure|null
     {
         return $this->skipCallback;
     }
@@ -179,7 +181,7 @@ class StringConfig
         return $this->unique;
     }
 
-    public function getCount()
+    public function getCount(): int
     {
         return $this->count;
     }
