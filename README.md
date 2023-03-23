@@ -86,8 +86,6 @@ $string = RandomString::fromConfig($config)->generate(); // Output: 083712
 If you want to add a prefix or suffix to generated string, you can do it like this.
 
 ```php
-use Stfn\RandomString\StringConfig;
-
 $config = StringConfig::make()
             ->length(6)
             ->prefix("PRE_")
